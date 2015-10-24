@@ -1,0 +1,5 @@
+image/src/
+js/libs/bower_components/
+node_modules/
+js/build.js
+css/build.css

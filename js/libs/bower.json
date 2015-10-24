@@ -1,0 +1,17 @@
+{
+  "name": "OpenDataDiscovery",
+  "description": "A web application to discover and map the data opening",
+  "version": "0.1.0",
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-bootstrap": "~0.13.4",
+    "angular-leaflet-directive": "angular-leaflet#~0.8.8",
+    "angular-smooth-scroll": "ngSmoothScroll#~1.7.1",
+    "bootstrap": "~3.3.5",
+    "d3": "~3.5.6",
+    "nvd3": "~1.8.1",
+    "angularjs-nvd3-directives": "~0.0.7",
+    "jquery": "~2.1.4",
+    "leaflet-ajax": "~2.0.0"
+  }
+}

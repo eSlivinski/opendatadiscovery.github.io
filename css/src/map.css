@@ -1,0 +1,149 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: calc(100% - 50px);
+	bottom: 0;
+	background: none;
+}
+
+#dataMap {
+	height: 100%;
+	position: relative;
+}
+
+#zoom-back-button {
+    right: 10px;
+    top: 70px;
+    width: 15px;
+    height: 28px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.8);
+    background: #fff url(../image/zoom-back-20px.png) no-repeat center;
+    border-radius: 5px;
+}
+
+#map-title {
+    color: #524E4E;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    text-shadow: 0 2px 5px rgb(255,255,255);
+}
+
+#map-title  p {
+    font-size: 28px;
+}
+
+#goToInput {
+    bottom: 200px;
+    width: 195px;
+    height: 35px;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+#geocodeFailMsg {
+    bottom: 200px;
+    left: calc(1em + 205px);
+    height: 35px;
+    width: 150px;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    
+}
+
+.map-bottom {
+    bottom: 1em;  
+}
+
+.map-right {
+    right: 1em;
+}
+
+.map-left {
+    left: 1em;
+}
+
+.map-top {
+    top: 1em;
+}
+
+.on-map {
+    position: absolute;
+    z-index: 100;    
+}
+
+.block {
+    margin-top: 5px;
+    display: block;
+}
+
+.info {
+    padding: 6px 6px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.info p {
+    margin: 0 0 10px;
+    color: #050505;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend span {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.legend i {
+    width: 25px;
+    height: 18px;
+    float: left;
+    opacity: 0.7;
+}
+
+.content-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.shrink {
+    width: 70%;
+    max-width: 1000px;
+}
+
+.padding-v-20 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.padding-v-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.inside-row {
+    display:inline-block;
+}
+
+.vertical-line-right {
+    border-right: solid;
+    border-right-color: rgba(0, 0, 0, 0.2);
+    border-right-width: 1px; 
+}
+
+.padding-h-20 {
+    padding-right: 20px;
+    padding-left: 20px;
+}

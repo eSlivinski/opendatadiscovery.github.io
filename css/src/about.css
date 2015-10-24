@@ -1,0 +1,13 @@
+#social-link img {
+    width: auto;
+    height: 50px;
+    opacity: 0.3;
+}
+
+#social-link img:hover {
+    opacity: 1;
+}
+
+.img-gap {
+    margin-right: 8px;
+}
