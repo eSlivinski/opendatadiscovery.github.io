@@ -1,0 +1,5 @@
+[
+    "static_src/libs/bower_components/bootstrap/dist/css/bootstrap.css",
+    "static_src/libs/bower_components/nvd3/build/nv.d3.css",
+    "static_src/libs/bower_components/leaflet/dist/leaflet.css"
+]

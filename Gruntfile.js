@@ -1,92 +1,92 @@
 module.exports = function(grunt) {
+
+    var externalStyleFiles = grunt.file.readJSON('externalStyles.json'),
+        externalScriptFiles = grunt.file.readJSON('externalScripts.json');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        less: {
+            compile: {
+                options: {
+                    cleancss: true
+                },
+                files: { 'static/styles/app.css': externalStyleFiles.concat('temp/app.less') }
+            }
+        },
+        ngAnnotate: {
+            main: {
+                files: {
+                    'temp/scripts.js': [
+                        'static_src/scripts/module.js',
+                        'static_src/srcipts/controllers/**/*.js',
+                        'static_src/scripts/services/**/*.js',
+                        'static_Src/srcipts/utils/**/*.js'
+                    ]
+                }
+            }
+        },
         concat: {
-            js: {
-                src: [
-                    'js/libs/bower_components/angular/angular.js',
-                    'js/libs/bower_components/angular-simple-logger/dist/index.js',
-                    'js/libs/bower_components/angular-smooth-scroll/angular-smooth-scroll.js',
-                    'js/libs/bower_components/angular-bootstrap/ui-bootstrap.js',
-                    'js/libs/bower_components/d3/d3.js',
-                    'js/libs/bower_components/nvd3/build/nv.d3.js',
-                    'js/libs/angularjs-nvd3-directives.min.js',
-                    'js/libs/bower_components/jquery/dist/jquery.js',
-                    'js/libs/bower_components/bootstrap/dist/js/bootstrap.js',
-                    'js/libs/bower_components/leaflet/dist/leaflet.js',
-                    'js/libs/bower_components/leaflet-ajax/dist/leaflet.ajax.js',
-                    'js/libs/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-                    'js/src/module.js',
-                    'js/src/map.js',
-                    'js/src/stat.js'
-                ],
-                dest: 'js/build.js'
+            libs: {
+                src: externalScriptFiles,
+                dest: 'temp/libraries.js',
+                nonull: true
             },
-            css: {
+            app: {
                 src: [
-                    'js/libs/bower_components/bootstrap/dist/css/bootstrap.css',
-                    'js/libs/bower_components/nvd3/build/nv.d3.css',
-                    'js/libs/bower_components/leaflet/dist/leaflet.css',
-                    'css/src/*.css'
+                    'temp/scripts.js',
+                    'temp/libraries.js'
                 ],
-                dest: 'css/build.css'
+                dest: 'static/scripts/app.js',
+                nonull: true
+            },
+            less: {
+                src: ['static_src/styles/**/*.less'],
+                dest: 'temp/app.less',
+                nonull: true
             }
         },
         uglify: {
-            js: {
-                src: 'js/build.js',
-                dest: 'js/build.min.js'
-            }
-        },
-        cssmin: {
-            target: {
-                files: {
-                    'css/build.min.css': 'css/build.css'
-                }
+            main: {
+              files: {
+                'static/scripts/app.js' : ['static/scripts/app.js'],
+              }
             }
         },
         clean: {
-            js: ['js/build.js'],
-            css: ['css/build.css']
-        },
-        imagemin: {
-            dynamic: {
-                files: [{
-                    expand: true,
-                    cwd: 'image/src/',
-                    src: ['*.{png,jpg,svg,gif}'],
-                    dest: 'image/'
-                }]
-            }
+            all: ['temp/'],
+            scripts: ['temp/scripts.js'],
+            libs: ['temp/libraries.js'],
+            less: ['temp/app.less']
         },
         watch: {
-            js: {
-                files: ['js/src/**/*.js', 'js/libs/**/*.js'],
-                tasks: ['concat', 'uglify', 'clean:js']
-            },
-            css: {
-                files: ['css/src/*.css', 'js/libs/**/*.css'],
-                tasks: ['concat', 'cssmin', 'clean:css']
-            },
-            image: {
-                files: ['image/src/*.{png,jpg,svg,gif}'],
-                tasks: ['imagemin']
-            },
             grunt: {
                 files: ['Gruntfile.js'],
                 options: {
-                    reload: true
+                    livereload: true
                 }
+            },
+            less: {
+                files: ['static_src/styles/**/*.less'],
+                tasks: ['concat:less', 'less']
+            },
+            libs: {
+                files: ['externalScripts.json', 'externalStyles,json', 'static_src/libs/**/*.js', 'static_src/libs/**/*.css'],
+                tasks: ['clean:libs','concat:less', 'less', 'concat:libs', 'ngAnnotate', 'concat:app']
+            },
+            scripts: {
+                files: ['static_src/scripts/**/*.js'],
+                tasks: ['clean:scripts', 'ngAnnotate', 'concat:app']
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-ng-annotate');
 
-    grunt.registerTask('default', ["concat", "uglify", "cssmin", "clean", "imagemin", "watch"]);
+    grunt.registerTask('default', ["watch"]);
+    grunt.registerTask('build', ['clean:all', 'concat:less', 'less', 'concat:libs', 'ngAnnotate', 'concat:app', 'uglify']);
 };
