@@ -6,4 +6,4 @@
 */
 
 
-var app = angular.module('openDataDiscovery', ['smoothScroll', 'ui.bootstrap', 'nvd3ChartDirectives']);
+var app = angular.module('openDataDiscovery', ['ui.bootstrap']);

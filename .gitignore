@@ -1,3 +1,2 @@
-static_src/libs/bower_components/
-node_modules/
+node_modules
 temp

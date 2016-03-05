@@ -12,8 +12,8 @@
 	    <!-- CSS -->
 	    <link href="static/styles/app.css" rel="stylesheet">
 
-		<!-- JS -->
-		<script type="text/javascript" src="static/scripts/app.js"></script>
+			<!-- JS -->
+			<script type="text/javascript" src="static/scripts/app.js"></script>
 	</head>
 
 	<body>
@@ -24,18 +24,13 @@
 	            <div class="navbar-header">
 	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 	                    <span class="sr-only">Toggle navigation</span>
-	                    <span class="icon-bar"></span>
-	                    <span class="icon-bar"></span>
-	                    <span class="icon-bar"></span>
 	                </button>
-	                <a class="navbar-brand" href="#" scroll-to="welcome" offset="50"><span>Open Data Discovery</span></a>
+	                <a class="navbar-brand" href="#"><span>Open Data Discovery</span></a>
 	            </div>
 	            <!-- Collect the nav links, forms, and other content for toggling -->
 	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	                <ul class="nav navbar-nav navbar-left">
-	                    <li><a href="#" scroll-to="dataMap" offset="50">Map</a></li>
-	                    <li><a href="#" scroll-to="statistic" offset="50">Statistic</a></li>
-	                    <li><a href="#" scroll-to="about" offset="50">About</a></li>
+	                    <li><a href="#">About</a></li>
 	                    <li><a href="https://github.com/OpenDataDiscovery/opendatadiscovery.github.io" target="_blank">GitHub</a></li>
 	                </ul>
 	            </div>
@@ -44,119 +39,35 @@
 
 	    <section id="map-view" ng-controller='mapController'>
 	    	<div id="map"></div>
-    		<input type="text" ng-model="goToLocation" id="goToInput" class="on-map map-left form-control" placeholder="Search for a location" ng-keypress="goTo($event)"></div>
-    		<div id="geocodeFailMsg" class	="on-map info form-control" ng-show="!geocodeSuccess"><p>Location not found</p></div>
+
+				<geocoder-view></geocoder-view>
+
 	    	<div id="map-title" class="on-map map-top text-center">
-				<h1>How many datasets are available at Data.gov?</h1>
-				<ng-switch on="showLegend">
-					<p ng-switch-when="true"><b>{{ dataNum | number }}</b> in {{ placeName }}</p>
-					<p ng-switch-default><b>{{ 161336 | number }}</b> in total</p>
-				</ng-switch>
+					<h1>Discover the data openning at Data.gov</h1>
 	    	</div>
-        	<div class="on-map map-bottom map-left info">
-        		<div>
-        			<span class="legend">Region:</span>
-				    <div class="btn-group">
-				        <label class="btn btn-primary" ng-model="selectedLevel" btn-radio="'state'" ng-change="loadLayer(selectedLevel)">State</label>
-				        <label class="btn btn-primary" ng-model="selectedLevel" btn-radio="'county'" ng-change="loadLayer(selectedLevel)">County</label>
+
+      	<div class="on-map map-bottom map-left info">
+      		<div>
+      			<span class="legend">Region:</span>
+			    <div class="btn-group">
+			        <label class="btn btn-primary" ng-model="selectedLevel" btn-radio="'state'" ng-change="loadLayer(selectedLevel)">State</label>
+			        <label class="btn btn-primary" ng-model="selectedLevel" btn-radio="'county'" ng-change="loadLayer(selectedLevel)">County</label>
 					</div>
-        		</div>
-        		<div class="legend" ng-if="legendStyle !== undefined">
-        			<h4>No. available datasets</h4>
-        			<div ng-repeat="style in legendStyle[selectedLevel]">
-        				<ng-switch on="$last">
-        					<span ng-switch-when="true"><i style="background:{{style.color}}"></i>{{style.limit[0]}}+</span>
-        					<span ng-switch-default><i style="background:{{style.color}}"></i>{{style.limit[0]}} &ndash; {{style.limit[1]}}</span>
-        				</ng-switch>
-        			</div>
-        		</div>
-			</div>
+      		</div>
+      		<div class="legend" ng-if="legendStyle !== undefined">
+      			<h4>No. available datasets</h4>
+      			<div ng-repeat="style in legendStyle[selectedLevel]">
+      				<ng-switch on="$last">
+      					<span ng-switch-when="true"><i style="background:{{style.color}}"></i>{{style.limit[0]}}+</span>
+      					<span ng-switch-default><i style="background:{{style.color}}"></i>{{style.limit[0]}} &ndash; {{style.limit[1]}}</span>
+      				</ng-switch>
+      			</div>
+      		</div>
+				</div>
+
 		    <button id="zoom-back-button" type="button" class="btn btn-default on-map" ng-click="zoomBack()"></button>
 	    </section>
 
-    	<section id="statistic" class="container-fluid content-center padding-v-20" ng-controller="statController">
-    		<section>
-    			<h2>How many datasets are available for each state and county?</h2>
-	    		<div class="stat inside-row vertical-line-right padding-h-20 margin-v-40">
-	    			<p><span>{{ statData.nation.total | number}}</span> datasets in total</p>
-	    		</div>
-	    		<div class="stat inside-row vertical-line-right padding-h-20 margin-v-40">
-	    			<p><span>{{ statData.state.mean | number }}</span> datasets on average per state</p>
-	    		</div>
-	    		<div class="stat inside-row padding-h-20 margin-v-40">
-	    			<p><span>{{ statData.county.mean | number }}</span> datasets on average per county</p>
-	    		</div>
-	    		<div class="row padding-v-20">
-	    			<div class="col-md-4 col-md-offset-2">
-	    				<p>Dataset at each state</p>
-					    <nvd3-pie-chart
-					      id="pieState"
-					      data="statData.state.pieData"
-					      x="xFunction()"
-					      y="yFunction()"
-					      showLabels="true"
-					      tooltips="true"
-					      tooltipcontent="getPieTipState()"
-					      labelType="percent"
-					      showLegend="true"
-					      color="getPieColor()"
-					      margin="{left:0,top:0,bottom:0,right:0}"
-					      >
-					      <svg height="350"></svg>
-					    </nvd3-pie-chart>
-	    			</div>
-	    			<div class="col-md-4">
-	    				<p>Dataset at each county</p>
-					    <nvd3-pie-chart
-					      id="pieCounty"
-					      data="statData.county.pieData"
-					      x="xFunction()"
-					      y="yFunction()"
-					      showLabels="true"
-					      tooltips="true"
-					      tooltipcontent="getPieTipCounty()"
-					      labelType="percent"
-					      showLegend="true"
-					      color="getPieColor()"
-					      margin="{left:0,top:0,bottom:0,right:0}"
-					      >
-					      <svg height="350"></svg>
-					    </nvd3-pie-chart>
-	    			</div>
-	    		</div>
-    		</section>
-
-    	</section>
-
-    	<section id="about" class="container-fluid shrink section-space">
-    		<section class="row">
-    			<h2>About My Data</h2>
-	    		<div class="col-md-8">
-	    			<p>The data of data opening is collected in two ways:</p>
-	    			<ul>
-	    				<li>Python crawlers to collect information from data portals.</li>
-	    				<li><a href="http://docs.ckan.org/en/ckan-2.2/api.html" class="link-black" target="_blank">CKAN API</a> for open-source data portals</li>
-	    			</ul>
-					<p>The data is last updated at 08/2015 and free-to-download. As this data is unofficially provided, it has some <a href="#" class="link-black" target="_blank">limitations</a> and please double check before your use.</p>
-    			</div>
-	    		<div id="download-link" class="col-md-4">
-	    			<p>Data Download</p>
-	    		</div>
-	    	</section>
-    		<section class="row">
-    			<h2>About Me</h2>
-				<div class="col-md-8">
-					<p>My name is Haoliang Yu and I am a GeoData Engineer in NBT Solutions. I have a strong interest in open data and believe we could contribute to the data opening not only by publishing datasets. The world of open data is in fact largely undiscovered and mysterious, although the data itself is open to everyone. It is the reason why I initiate projects like the OpenDataDiscovery.</p>
-				</div>
-				<div id="social-link" class="col-md-4">
-					<p>Reach Me</p>
-					<a href="https://github.com/haoliangyu" target="_blank" data-toggle="tooltip" title="GitHub" class="img-gap"><img src="image/github-mark-64px.png"></a>
-					<a href="https://twitter.com/haoliang_yu" target="_blank" data-toggle="tooltip" title="Twitter" class="img-gap"><img src="image/twitter-circle-64px.png"></a>
-					<a href="https://linkedin.com/in/haoliangyu" target="_blank" data-toggle="tooltip" title="LinkedIn"><img src="image/linkedin-64px.png"></a>
-					<a href="mailto:haoliang.yu@outlook.com" data-toggle="tooltip" title="Email"><img src="image/email-mark-64px.png"></a>
-				</div>
-			</section>
-    	</section>
  	</body>
 
 </html>

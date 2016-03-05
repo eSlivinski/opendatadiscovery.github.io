@@ -1,6 +1,6 @@
 var server = '54.175.114.159:10086';
 
-app.service('queryReq', function($http) {
+app.service('util_ajax', function($http) {
     this.getStateBounary = function() {
         return $http.get(server + '/api/state/boundary');
     };
