@@ -7296,6 +7296,10 @@ body {
   padding-right: 20px;
   padding-left: 20px;
 }
+.navbar-bg {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
 .margin-v-40 {
   margin-top: 40px;
   margin-bottom: 40px;

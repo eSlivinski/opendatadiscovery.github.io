@@ -4,6 +4,6 @@ app.directive('legend-view', function() {
         controller: 'legendCtrl',
         scope: {},
         link: {},
-        templateUrl: "views/legend-view.html"
+        templateUrl: "views/legend.html"
     };
 });

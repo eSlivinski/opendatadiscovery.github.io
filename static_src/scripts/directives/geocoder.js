@@ -4,6 +4,6 @@ app.directive('geocoder-view', function() {
         controller: 'geocoderCtrl',
         scope: {},
         link: {},
-        templateUrl: "views/geocoder-view.html"
+        templateUrl: "views/geocoder.html"
     };
 });

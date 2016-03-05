@@ -15,6 +15,13 @@ module.exports = function(grunt) {
                 files: { 'static/styles/app.css': externalStyleFiles.concat('static_src/styles/app.less') }
             }
         },
+        ngAnnotate: {
+            scripts: {
+                files: {
+                  'temp/scripts.js': 'static_src/scripts/**/*.js'
+                }
+            }
+        },
         concat: {
             libs: {
                 src: externalScriptFiles,
@@ -24,7 +31,7 @@ module.exports = function(grunt) {
             app: {
                 src: [
                     'temp/libraries.js',
-                    'static_src/scripts/**/*.js'
+                    'temp/scripts.js'
                 ],
                 dest: 'temp/app.js',
                 nonull: true
@@ -55,11 +62,11 @@ module.exports = function(grunt) {
             },
             libs: {
                 files: ['externalScripts.json', 'externalStyles,json', 'static_src/libs/**/*.js', 'static_src/libs/**/*.css'],
-                tasks: ['clean:all', 'less', 'concat', 'uglify']
+                tasks: ['clean:all', 'less', 'ngAnnotate', 'concat', 'uglify']
             },
             scripts: {
                 files: ['static_src/scripts/**/*.js'],
-                tasks: ['clean:scripts', 'concat:app', 'uglify']
+                tasks: ['clean:scripts', 'ngAnnotate', 'concat:app', 'uglify']
             }
         }
     });
@@ -69,8 +76,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-ts');
 
     grunt.registerTask('default', ["watch"]);
-    grunt.registerTask('build', ['clean:all', 'less', 'concat', 'uglify']);
+    grunt.registerTask('build', ['clean:all', 'less', 'ngAnnotate', 'concat', 'uglify']);
 };
