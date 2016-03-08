@@ -17,57 +17,26 @@
 	</head>
 
 	<body>
-	    <!-- Navigation -->
-	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	        <div class="container-fluid">
-	            <!-- Brand and toggle get grouped for better mobile display -->
-	            <div class="navbar-header">
-	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-	                    <span class="sr-only">Toggle navigation</span>
-	                </button>
-	                <a class="navbar-brand" href="#"><span>Open Data Discovery</span></a>
-	            </div>
-	            <!-- Collect the nav links, forms, and other content for toggling -->
-	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	                <ul class="nav navbar-nav navbar-left">
-	                    <li><a href="#">About</a></li>
-	                    <li><a href="https://github.com/OpenDataDiscovery/opendatadiscovery.github.io" target="_blank">GitHub</a></li>
-	                </ul>
-	            </div>
-	        </div>
-	    </nav>
+			<nav class="navbar navbar-default on-map navbar-style" ng-controller="navigatorCtrl">
+			  <div class="container-fluid">
+			      <form class="navbar-form navbar-left" role="Search a location">
+			        <div class="form-group">
+			          <input type="text" class="form-control geocoder" placeholder="Search">
+			        </div>
+			      </form>
 
-	    <section id="map-view" ng-controller='mapController'>
-	    	<div id="map"></div>
+			      <ul class="nav navbar-nav navbar-right">
+							<li class="nav-link" ng-click="loadStateMap()"><a>State</a></li>
+							<li class="nav-link" ng-click="loadCountyMap()"><a>County</a></li>
+							<li class="nav-link"><a>About</a></li>
+			        <li class="nav-link"><a href="https://github.com/OpenDataDiscovery/opendatadiscovery.github.io" target="_blank" >GitHub</a></li>
+			      </ul>
+			  </div>
+			</nav>
 
-				<geocoder-view></geocoder-view>
-
-	    	<div id="map-title" class="on-map map-top text-center">
-					<h1>Discover the data openning at Data.gov</h1>
-	    	</div>
-
-      	<div class="on-map map-bottom map-left info">
-      		<div>
-      			<span class="legend">Region:</span>
-			    <div class="btn-group">
-			        <label class="btn btn-primary" ng-model="selectedLevel" btn-radio="'state'" ng-change="loadLayer(selectedLevel)">State</label>
-			        <label class="btn btn-primary" ng-model="selectedLevel" btn-radio="'county'" ng-change="loadLayer(selectedLevel)">County</label>
-					</div>
-      		</div>
-      		<div class="legend" ng-if="legendStyle !== undefined">
-      			<h4>No. available datasets</h4>
-      			<div ng-repeat="style in legendStyle[selectedLevel]">
-      				<ng-switch on="$last">
-      					<span ng-switch-when="true"><i style="background:{{style.color}}"></i>{{style.limit[0]}}+</span>
-      					<span ng-switch-default><i style="background:{{style.color}}"></i>{{style.limit[0]}} &ndash; {{style.limit[1]}}</span>
-      				</ng-switch>
-      			</div>
-      		</div>
-				</div>
-
-		    <button id="zoom-back-button" type="button" class="btn btn-default on-map" ng-click="zoomBack()"></button>
-	    </section>
+			<div id="map" ng-controller="mapCtrl"></div>
+			<div id="map-title" class="on-map"> Discover the data openning at Data.gov
+			</div>
 
  	</body>
-
 </html>

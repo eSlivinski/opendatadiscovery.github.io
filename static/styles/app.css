@@ -7170,54 +7170,27 @@ button.close {
   border: 1px solid #666;
 }
 
-html {
+map-view {
   height: 100%;
-}
-body {
-  height: calc(50%);
-  bottom: 0;
-  background: none;
-}
-#map-view {
-  height: 100%;
-  position: relative;
+  width: 100%,
+	position: relative;
   margin-top: 50px;
 }
-#zoom-back-button {
-  right: 10px;
-  top: 70px;
-  width: 15px;
-  height: 28px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
-  background: #fff url(../image/zoom-back-20px.png) no-repeat center;
-  border-radius: 5px;
-}
 #map-title {
-  color: #524E4E;
+  color: #dce9e4;
   margin: auto;
   width: 100%;
-  font-size: 28px;
+  font-size: 50px;
   text-align: center;
-  text-shadow: 0 2px 5px #ffffff;
+  top: 80px;
 }
 #map {
   width: 100%;
   height: 100%;
+  top: 0;
 }
-#goToInput {
-  bottom: 200px;
-  width: 195px;
-  height: 35px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
-#geocodeFailMsg {
-  bottom: 200px;
-  left: calc(206em);
-  height: 35px;
-  width: 150px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+.leaflet-control-zoom {
+  top: 50px;
 }
 .map-bottom {
   bottom: 1em;
@@ -7296,9 +7269,32 @@ body {
   padding-right: 20px;
   padding-left: 20px;
 }
-.navbar-bg {
+.navbar-style {
+  width: 100%;
   background-color: transparent;
   border: 1px solid transparent;
+}
+.navbar-style .container-fluid {
+  padding-left: 0;
+}
+.navbar-style input {
+  padding: 0;
+  width: 250px !important;
+}
+.navbar-style .nav-link a {
+  font-weight: bold;
+  color: #ececec;
+}
+.navbar-style .nav-link:hover {
+  cursor: pointer;
+  background-color: #065982;
+  border-radius: 10px;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
 }
 .margin-v-40 {
   margin-top: 40px;

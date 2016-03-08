@@ -18,7 +18,10 @@ module.exports = function(grunt) {
         ngAnnotate: {
             scripts: {
                 files: {
-                  'temp/scripts.js': 'static_src/scripts/**/*.js'
+                  'temp/scripts.js': [
+                    'static_src/scripts/app.js',
+                    'static_src/scripts/**/*.js'
+                  ]
                 }
             }
         },

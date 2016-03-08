@@ -1,4 +1,4 @@
-  app.controller('geocoderCtrl', ['$scope', '_map', function($scope, $http, $timeout, _map) {
+app.controller('geocoderCtrl', function($scope, $http, $timeout, _map) {
     $scope.geocodeSuccess = true;
 
     $scope.goTo = function($event) {
@@ -21,4 +21,4 @@
         }
     };
 
-}]);
+});

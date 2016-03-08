@@ -1,2 +1,5 @@
 node_modules
 temp
+static_src/libs/bower_components
+static/scripts
+static/styles

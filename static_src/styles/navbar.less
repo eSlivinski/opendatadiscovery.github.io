@@ -1,4 +1,28 @@
-.navbar-bg {
+.navbar-style {
+    width: 100%;
     background-color: transparent;
     border: 1px solid transparent;
+
+    .container-fluid {
+        padding-left: 0;
+    }
+
+    input {
+        padding: 0;
+        width: 250px !important;
+    }
+
+    .nav-link {
+
+        a {
+          font-weight: bold;
+          color: rgb(236, 236, 236);
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgb(6, 89, 130);
+            border-radius: 10px;
+        }
+    }
 }

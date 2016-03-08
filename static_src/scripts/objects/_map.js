@@ -6,13 +6,12 @@ app.service('_map', function() {
         zoomControl: false
     });
 
-    L.control.zoom({
-        position: 'topright'
-    }).addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
 
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
-        id: 'dz316424.no2ad5mo',
-        token: 'pk.eyJ1IjoiZHozMTY0MjQiLCJhIjoiNzI3NmNkOTcyNWFlNGQxNzU2OTA1N2EzN2FkNWIwMTcifQ.NS8KWg47FzfLPlKY0JMNiQ'
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+      	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+      	subdomains: 'abcd',
+      	maxZoom: 19
     }).addTo(map);
 
     return map;
