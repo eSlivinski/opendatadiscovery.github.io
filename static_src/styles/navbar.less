@@ -12,17 +12,26 @@
         width: 250px !important;
     }
 
-    .nav-link {
+    .nav-button {
 
-        a {
-          font-weight: bold;
-          color: rgb(236, 236, 236);
+        .nav-link {
+            // font-size: 20px;
+            font-weight: bold;
+            color:white;
         }
 
         &:hover {
             cursor: pointer;
-            background-color: rgb(6, 89, 130);
+            background-color: #337ab7;
             border-radius: 10px;
+
+            .nav-link {
+                color: white;
+            }
         }
+    }
+
+    .geocoder {
+        padding: 5px;
     }
 }

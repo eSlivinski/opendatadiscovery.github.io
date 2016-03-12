@@ -1,18 +1,15 @@
-app.service('mapService', function($http, config, _map) {
+app.service('mapService', function($rootScope, $http, config, _map, _sidebar, legendService) {
 
-    var currentLayer, currentPopup;
-
-    var limits = {
-        state: [14000, 12000, 10000, 8000],
-        county: [8000, 7500, 7000, 6500]
-    };
+    var currentLayer;
 
     function getMapColor(count, type) {
-        return count > limits[type][0] ? '#ffffcc' :
-               count > limits[type][1] ? '#a1dab4' :
-               count > limits[type][2] ? '#41b6c4' :
-               count > limits[type][3] ? '#2c7fb8' :
-                                         '#253494';
+        for(var i = 0, n = legendService.limits[type].length; i < n; i++) {
+            if (count > legendService.limits[type][i]) {
+                return legendService.colors[i];
+            }
+        }
+
+        return legendService.colors[legendService.colors.length - 1];
     }
 
     function getStateMapStyle(feature) {
@@ -51,9 +48,9 @@ app.service('mapService', function($http, config, _map) {
         var properties = layer.feature.properties;
         var info;
         if (properties.state) {
-            info = properties.name + ', ' + properties.state + ' has ' + properties.count.toString() + ' open datasets.';
+            info = properties.name + ', ' + properties.state + ' has ' + properties.count.toString() + ' open datasets.\n(click for more detail)';
         } else {
-            info = properties.name + ' has ' + properties.count.toString() + ' open datasets.';
+            info = properties.name + ' has ' + properties.count.toString() + ' open datasets.\n(click for more detail)';
         }
 
         // calculate the location of popup
@@ -86,6 +83,25 @@ app.service('mapService', function($http, config, _map) {
         });
     }
 
+    function updateStat(geojson, type) {
+        var min = 0;
+        var stat = [];
+
+        for(var i = legendService.limits[type].length - 1; i >= 0; i--) {
+            var count = _.filter(geojson.features, function(feature) {
+                return feature.properties.count > min &&
+                       feature.properties.count < legendService.limits[type][i];
+            }).length;
+
+            stat.push(count);
+            min = legendService.limits[type][i];
+        }
+
+        stat.push(geojson.features.length - _.sum(stat));
+
+        return stat;
+    }
+
     this.loadStateMap = function() {
         $http.get(config.local + '/api/state/map')
         .then(function(result) {
@@ -95,6 +111,9 @@ app.service('mapService', function($http, config, _map) {
                 style: getStateMapStyle,
                 onEachFeature: onEachFeature
             }).addTo(_map);
+
+            var stat = updateStat(result.data, 'state');
+            $rootScope.$broadcast('state_map:loaded', stat);
         });
     };
 
@@ -107,6 +126,9 @@ app.service('mapService', function($http, config, _map) {
               style: getCountyMapStyle,
               onEachFeature: onEachFeature
           }).addTo(_map);
+
+          var stat = updateStat(result.data, 'county');
+          $rootScope.$broadcast('county_map:loaded', stat);
       });
     };
 

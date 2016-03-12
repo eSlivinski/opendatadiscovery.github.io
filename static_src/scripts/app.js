@@ -6,4 +6,8 @@
 */
 
 
-var app = angular.module('openDataDiscovery', ['ui.bootstrap']);
+var app = angular.module('openDataDiscovery', ['ui.bootstrap'])
+                .constant('_', window._)
+                .run(function ($rootScope) {
+                    $rootScope._ = window._;
+                });

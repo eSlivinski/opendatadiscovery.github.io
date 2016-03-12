@@ -1,4 +1,6 @@
 [
+    "node_modules/font-awesome/less/font-awesome.less",
     "node_modules/bootstrap/less/bootstrap.less",
-    "node_modules/leaflet/dist/leaflet.css"
+    "node_modules/leaflet/dist/leaflet.css",
+    "node_modules/leaflet-sidebar/src/L.Control.Sidebar.css"
 ]
