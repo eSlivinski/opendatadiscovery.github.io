@@ -17,7 +17,7 @@
 	</head>
 
 	<body>
-			<nav class="navbar navbar-default on-map navbar-style" ng-controller="navigatorCtrl">
+			<nav class="navbar navbar-default on-map no-background" ng-controller="navigatorCtrl">
 			  <div class="container-fluid">
 			      <form class="navbar-form navbar-left">
 			        <div class="form-group input-group">
@@ -33,17 +33,22 @@
 			      </form>
 
 			      <ul class="nav navbar-nav navbar-right">
-							<li class="nav-button" ng-click="loadStateMap()"><a class="nav-link" title="Load state-level map">State</a></li>
-							<li class="nav-button" ng-click="loadCountyMap()"><a class="nav-link" title="Load county-level map">County</a></li>
-							<li class="nav-button"><a class="nav-link" title="See about page">About</a></li>
-			        <li class="nav-button"><a href="https://github.com/OpenDataDiscovery/opendatadiscovery.github.io" target="_blank" class="nav-link" title="Go to GitHub repo">GitHub</a></li>
+							<li><a class="nav-button">Data.gov</a></li>
+							<li uib-dropdown dropdown-append-to-body>
+			          <a class="nav-button clickable" uib-dropdown-toggle>{{ currentResolution }} <span class="caret"></span></a>
+			          <ul uib-dropdown-menu>
+			            <li ng-repeat="res in resolutions" ng-click="changeResolution(res)" class="clickable"><a>{{ res }}</a></li>
+			          </ul>
+					    </li>
+							<li><a class="nav-button clickable" title="See about page">About</a></li>
+			        <li><a href="https://github.com/OpenDataDiscovery/opendatadiscovery.github.io" target="_blank" class="nav-button clickable" tooltip="Go to GitHub repo">GitHub</a></li>
 			      </ul>
 			  </div>
 			</nav>
 
 			<div id="legend" ng-controller="legendCtrl" class="on-map"></div>
 			<div id="map" ng-controller="mapCtrl"></div>
-			<div id="map-title" class="on-map"> Discover the data openning at Data.gov</div>
+			<div id="map-title" class="on-map">The Open Data Discovery</div>
 
 			<div id="sidebar">
 			</div>

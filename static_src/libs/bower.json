@@ -1,0 +1,21 @@
+{
+  "name": "OpenDataDiscovery",
+  "homepage": "https://github.com/OpenDataDiscovery/opendatadiscovery.github.io",
+  "authors": [
+    "haoliangyu <njkon@foxmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet-spin": "^0.1.1"
+  }
+}

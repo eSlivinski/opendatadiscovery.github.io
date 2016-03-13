@@ -4,7 +4,5 @@ app.service('_sidebar', function(_map) {
         position: 'right'
     }).addTo(_map);
 
-    sidebar.show();
-
     return sidebar;
 });
