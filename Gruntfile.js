@@ -26,26 +26,32 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            libs: {
-                src: externalScriptFiles,
-                dest: 'temp/libraries.js',
-                nonull: true
-            },
-            app: {
-                src: [
-                    'temp/libraries.js',
-                    'temp/scripts.js'
-                ],
-                dest: 'temp/app.js',
-                nonull: true
-            }
+          // options : {
+          //   sourceMap :true
+          // },
+          libs: {
+              src: externalScriptFiles,
+              dest: 'temp/libraries.js',
+              nonull: true
+          },
+          app: {
+              src: [
+                  'temp/libraries.js',
+                  'temp/scripts.js'
+              ],
+              dest: 'temp/app.js',
+              nonull: true
+          }
         },
         uglify: {
-            main: {
-              files: {
-                'static/scripts/app.js' : 'temp/app.js'
-              }
+          // options: {
+          //   sourceMap: true
+          // },
+          main: {
+            files: {
+              'static/scripts/app.js' : 'temp/app.js'
             }
+          }
         },
         clean: {
             all: ['temp/*.js'],

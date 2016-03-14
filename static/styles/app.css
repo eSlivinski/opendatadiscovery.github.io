@@ -9460,6 +9460,11 @@ nav .clickable:hover {
   top: 50px;
   height: calc(100% -  50px);
 }
+detail-view {
+  height: inherit;
+  width: inherit;
+  padding: 15px;
+}
 html {
   height: 100%;
 }

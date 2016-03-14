@@ -33,8 +33,13 @@ app.controller('navigatorCtrl', function($scope, $http, _map, mapService) {
     .success(function(data) {
       if (data.status !== 'OK') { throw 'geocoding fails'; }
 
-      var result = data.results[0].geometry.location;
-      _map.panTo(new L.LatLng(result.lat, result.lng));
+      var viewPort = data.results[0].geometry.viewport;
+
+      var southWest = L.latLng(viewPort.southwest.lat, viewPort.southwest.lng);
+      var northEast = L.latLng(viewPort.northeast.lat, viewPort.northeast.lng);
+      var viewBounds = L.latLngBounds(southWest, northEast);
+
+      _map.fitBounds(viewBounds);
     })
     .error(function(err) {
 

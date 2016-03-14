@@ -1,0 +1,15 @@
+<h3>{{ place }}</h3>
+
+<div class="detail-container">
+
+  <div class="detail">
+    <p>Total Number</p>
+    <p>{{ count | number }}</p>
+  </div>
+
+  <div class="detail">
+    <p>Latest Update</p>
+    <p>{{ update | amUtc | amLocal | amDateFormat: 'LL' }}</p>
+  </div>
+
+</div>

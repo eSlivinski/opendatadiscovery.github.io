@@ -1,6 +1,9 @@
-app.service('mapService', function($rootScope, $http, config, _map, _sidebar, legendService) {
+app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, _sidebar, legendService, config) {
 
-    var currentLayer;
+    var currentLayer, currentPopup;
+
+    // initialize map
+    _map.on('mousemove', mouseMove);
 
     function getMapColor(count, type) {
         for(var i = 0, n = legendService.limits[type].length; i < n; i++) {
@@ -34,7 +37,8 @@ app.service('mapService', function($rootScope, $http, config, _map, _sidebar, le
         };
     }
 
-    function highlightFeature(e) {
+    function mouseInFeature(e) {
+
         var layer = e.target;
 
         layer.setStyle({
@@ -53,16 +57,10 @@ app.service('mapService', function($rootScope, $http, config, _map, _sidebar, le
             info = properties.name + ' has ' + properties.count.toString() + ' open datasets.\n(click for more detail)';
         }
 
-        // calculate the location of popup
-        var bound = e.layer.getBounds();
-        var east = bound.getEast();
-        var west = bound.getWest();
-        var north = bound.getNorth();
-        var location = L.latLng(north, (east + west) / 2);
-
         _map.closePopup();
-        currentPopup = L.popup({ offset: L.point(0, 0) })
-            .setLatLng(location)
+
+        currentPopup = L.popup({ offset: L.point(0, -1) })
+            .setLatLng(e.latlng)
             .setContent(info)
             .openOn(_map);
 
@@ -71,15 +69,50 @@ app.service('mapService', function($rootScope, $http, config, _map, _sidebar, le
         }
     }
 
-    function resetHighlight(e) {
-        _map.closePopup();
-        currentLayer.resetStyle(e.target);
+    function mouseOutsideFeature(e) {
+      _map.closePopup();
+      currentPopup = undefined;
+      currentLayer.resetStyle(e.target);
+    }
+
+    function mouseMove(e) {
+      if (currentPopup) { currentPopup.setLatLng(e.latlng); }
+    }
+
+    function seeDetail(e) {
+
+      var layer = e.target;
+      var properties = layer.feature.properties;
+
+      var request = vsprintf('%s/api/%s/count?name=%s', [
+        config.local,
+        properties.type,
+        properties.name
+      ]);
+      if (properties.type === 'county') { request += sprintf('&state=%s', properties.state); }
+
+      $http.get(request)
+      .then(function(result) {
+        var detail = result.data;
+
+        var scope = $rootScope.$new(true);
+        scope.place = detail.type === 'county' ? sprintf('%s, %s', detail.name, detail.state) :
+                                                 detail.name;
+        scope.count = detail.count;
+        scope.update = detail.update;
+
+        var content = angular.element('<detail-view></detail-view>');
+        _sidebar.setContent($compile(content)(scope)[0]);
+
+        if (!_sidebar.isVisible()) { _sidebar.show(); }
+      });
     }
 
     function onEachFeature(feature, layer) {
         layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
+            mouseover: mouseInFeature,
+            mouseout: mouseOutsideFeature,
+            click: seeDetail
         });
     }
 
@@ -139,5 +172,4 @@ app.service('mapService', function($rootScope, $http, config, _map, _sidebar, le
       })
       .finally(function() { _map.spin(false); });
     };
-
 });

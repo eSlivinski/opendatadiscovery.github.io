@@ -1,10 +1,13 @@
 [
-    "node_modules/angular/angular.js",
-    "node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js",
-    "node_modules/d3/d3.js",
-    "node_modules/leaflet/dist/leaflet.js",
-    "node_modules/lodash/lodash.js",
-    "node_modules/leaflet-sidebar/src/L.Control.Sidebar.js",
-    "static_src/libs/bower_components/spin.js/spin.js",
-    "static_src/libs/bower_components/leaflet-spin/leaflet.spin.js"
+  "node_modules/angular/angular.js",
+  "node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js",
+  "node_modules/d3/d3.js",
+  "node_modules/leaflet/dist/leaflet.js",
+  "node_modules/lodash/lodash.js",
+  "node_modules/sprintf-js/src/sprintf.js",
+  "node_modules/moment/min/moment-with-locales.js",
+  "node_modules/angular-moment/angular-moment.js",
+  "static_src/libs/bower_components/leaflet-sidebar/src/L.Control.Sidebar.js",
+  "static_src/libs/bower_components/spin.js/spin.js",
+  "static_src/libs/bower_components/leaflet-spin/leaflet.spin.js"
 ]
