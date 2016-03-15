@@ -9465,6 +9465,21 @@ detail-view {
   width: inherit;
   padding: 15px;
 }
+detail-view h2 {
+  text-align: center;
+}
+detail-view .detail {
+  margin: 15px 0 10px 0;
+}
+detail-view .detail .title {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 50px;
+}
+detail-view .detail .value {
+  font-size: 18px;
+  padding-left: 20px;
+}
 html {
   height: 100%;
 }

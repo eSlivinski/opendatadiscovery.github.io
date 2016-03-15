@@ -59,7 +59,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
         _map.closePopup();
 
-        currentPopup = L.popup({ offset: L.point(0, -1) })
+        currentPopup = L.popup({ offset: L.point(0, -1), closeButton: false })
             .setLatLng(e.latlng)
             .setContent(info)
             .openOn(_map);
