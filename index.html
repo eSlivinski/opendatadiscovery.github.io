@@ -34,9 +34,9 @@
 			      </form>
 
 			      <ul class="nav navbar-nav navbar-right">
-							<li><a class="nav-button">Data.gov</a></li>
+							<li><a class="nav-button clickable" href="https://www.data.gov/" target="_blank" tooltip="Go to the website">Data.gov</a></li>
 							<li uib-dropdown dropdown-append-to-body>
-			          <a class="nav-button clickable" uib-dropdown-toggle>{{ currentResolution }} <span class="caret"></span></a>
+			          <a class="nav-button clickable" uib-dropdown-toggle tooltip="Change map resolution">{{ currentResolution }} <span class="caret"></span></a>
 			          <ul uib-dropdown-menu>
 			            <li ng-repeat="res in resolutions" ng-click="changeResolution(res)" class="clickable"><a>{{ res }}</a></li>
 			          </ul>

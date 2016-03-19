@@ -83,9 +83,10 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
       var layer = e.target;
       var properties = layer.feature.properties;
+      var bounds = layer.getBounds();
 
       var request = vsprintf('%s/api/%s/count?name=%s', [
-        config.local,
+        config.server,
         properties.type,
         properties.name
       ]);
@@ -100,6 +101,16 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
                                                  detail.name;
         scope.count = detail.count;
         scope.update = detail.update;
+        // https://catalog.data.gov/dataset?q=&sort=score+desc%2C+name+asc&ext_location=New+York&ext_bbox=-79.7632%2C40.506%2C-71.87%2C45.0061
+        scope.link = vsprintf('https://catalog.data.gov/dataset?q=&ext_location=%s&ext_bbox=%s',[
+          scope.place.replace(' ', '+'),
+          vsprintf('%f,%f,%f,%f', [
+            bounds.getWest(),
+            bounds.getSouth(),
+            bounds.getEast(),
+            bounds.getNorth()
+          ]).replace(',', '%2C')
+        ]);
 
         var content = angular.element('<detail-view></detail-view>');
         _sidebar.setContent($compile(content)(scope)[0]);
@@ -139,7 +150,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
       _map.spin(true);
 
-      $http.get(config.local + '/api/state/map')
+      $http.get(config.server + '/api/state/map')
       .then(function(result) {
         if (currentLayer) { _map.removeLayer(currentLayer); }
 
@@ -158,7 +169,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
       _map.spin(true);
 
-      $http.get(config.local + '/api/county/map')
+      $http.get(config.server + '/api/county/map')
       .then(function(result) {
         if (currentLayer) {  _map.removeLayer(currentLayer); }
 
