@@ -15,6 +15,15 @@
 
 			<!-- JS -->
 			<script type="text/javascript" src="static/scripts/app.js"></script>
+
+			<style>
+				.chart text {
+				  fill: white;
+				  font-size: 20px;
+				  font-weight: bold;
+				  text-anchor: end;
+				}
+			</style>
 	</head>
 
 	<body>
@@ -47,7 +56,7 @@
 			  </div>
 			</nav>
 
-			<div id="legend" ng-controller="legendCtrl" class="on-map"></div>
+			<div id="legend" ng-controller="legendCtrl" class="on-map chart"></div>
 			<div id="map" ng-controller="mapCtrl"></div>
 			<div id="map-title" class="on-map">The Open Data Discovery</div>
 

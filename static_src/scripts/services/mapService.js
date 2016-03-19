@@ -1,4 +1,4 @@
-app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, _sidebar, legendService, config) {
+app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, _sidebar, legendService, config) {
 
     var currentLayer, currentPopup;
 
@@ -135,41 +135,47 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
         return stat;
     }
 
-    this.loadStateMap = function() {
+    return {
+      loadStateMap: function() {
 
-      _map.spin(true);
+        _map.spin(true);
 
-      $http.get(config.server + '/api/state/map')
-      .then(function(result) {
-        if (currentLayer) { _map.removeLayer(currentLayer); }
+        $http.get(config.server + '/api/state/map')
+        .then(function(result) {
+          if (currentLayer) { _map.removeLayer(currentLayer); }
 
-        currentLayer = L.geoJson(result.data, {
-          style: getStateMapStyle,
-          onEachFeature: onEachFeature
-        }).addTo(_map);
-
-        var stat = updateStat(result.data, 'state');
-        $rootScope.$broadcast('state_map:loaded', stat);
-      })
-      .finally(function() { _map.spin(false); });
-    };
-
-    this.loadCountyMap = function() {
-
-      _map.spin(true);
-
-      $http.get(config.server + '/api/county/map')
-      .then(function(result) {
-        if (currentLayer) {  _map.removeLayer(currentLayer); }
-
-        currentLayer = L.geoJson(result.data, {
-            style: getCountyMapStyle,
+          currentLayer = L.geoJson(result.data, {
+            style: getStateMapStyle,
             onEachFeature: onEachFeature
-        }).addTo(_map);
+          }).addTo(_map);
 
-        var stat = updateStat(result.data, 'county');
-        $rootScope.$broadcast('county_map:loaded', stat);
-      })
-      .finally(function() { _map.spin(false); });
+          var stats = updateStat(result.data, 'state');
+          legendService.update(stats);
+        })
+        .finally(function() { _map.spin(false); });
+      },
+
+      loadCountyMap: function() {
+
+        _map.spin(true);
+
+        $http.get(config.server + '/api/county/map')
+        .then(function(result) {
+          if (currentLayer) {  _map.removeLayer(currentLayer); }
+
+          currentLayer = L.geoJson(result.data, {
+              style: getCountyMapStyle,
+              onEachFeature: onEachFeature
+          }).addTo(_map);
+
+          var stats = updateStat(result.data, 'county');
+          legendService.update(stats);
+        })
+        .finally(function() { _map.spin(false); });
+      }
     };
+
+
+
+
 });
