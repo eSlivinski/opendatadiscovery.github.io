@@ -85,7 +85,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
       var properties = layer.feature.properties;
 
       var request = vsprintf('%s/api/%s/count?name=%s', [
-        config.server,
+        config.local,
         properties.type,
         properties.name
       ]);
@@ -139,7 +139,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
       _map.spin(true);
 
-      $http.get(config.server + '/api/state/map')
+      $http.get(config.local + '/api/state/map')
       .then(function(result) {
         if (currentLayer) { _map.removeLayer(currentLayer); }
 
@@ -158,7 +158,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
       _map.spin(true);
 
-      $http.get(config.server + '/api/county/map')
+      $http.get(config.local + '/api/county/map')
       .then(function(result) {
         if (currentLayer) {  _map.removeLayer(currentLayer); }
 
