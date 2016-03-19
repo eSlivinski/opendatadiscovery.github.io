@@ -9390,8 +9390,6 @@ button.close {
   transition: right 0.5s;
 }
 
-@map ZIndex
-
 map-view {
   height: 100%;
   width: 100%,
@@ -9402,9 +9400,10 @@ map-view {
   color: white;
   margin: auto;
   width: 100%;
-  font-size: 50px;
+  font-size: 45px;
+  font-weight: bold;
   text-align: center;
-  top: 80px;
+  top: 100px;
 }
 #map {
   width: 100%;
@@ -9412,7 +9411,7 @@ map-view {
   top: 0;
 }
 #map .leaflet-control-zoom {
-  top: 50px;
+  top: 60px;
 }
 #map .leaflet-control-attribution {
   margin: 10px;
@@ -9457,8 +9456,8 @@ nav .clickable:hover {
   vertical-align: middle;
 }
 .leaflet-sidebar {
-  top: 50px;
-  height: calc(100% -  50px);
+  top: 60px;
+  height: calc(100% -  60px);
 }
 detail-view {
   height: inherit;

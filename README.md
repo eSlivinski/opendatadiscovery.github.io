@@ -1,7 +1,7 @@
 Open Data Discovery
 ===================
 
-> We know everybody is on his way to publish data, but WHERE are they?
+> We know everybody is on his way to publish data, but WHERE are those data?
 
 **[Open Data Discovery](http://opendatadiscovery.github.io/)** is such a project to explore and visualize the geographical coverage of open data in [CKAN-based data portals](http://ckan.org/instances/#). We believe understanding the existing open data is as important as opening new data.
 
@@ -14,7 +14,7 @@ If we would like to know the number of open data in [New York State](http://cata
 
 With this functionality, we are able to get the open data summary for every administrative district and provide an overall map about the data opening for the entire study area.
 
-[Map of open data]()
+![Map of open data](static/images/readme-map.png)
 
 This project was originally designed to visualize [Data.gov](http://www.data.gov/) and it is being extended to visualize any CKAN-based platform. The server of this project is hosted at an AWS EC2 instance and the server crawls all monitored data portals every week.
 
