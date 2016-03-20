@@ -17,6 +17,6 @@
   ],
   "dependencies": {
     "leaflet-spin": "^0.1.1",
-    "leaflet-sidebar": "git://github.com/haoliangyu/leaflet-sidebar.git#master"
+    "leaflet-sidebar": "https://github.com/Turbo87/leaflet-sidebar.git#master"
   }
 }

@@ -3,7 +3,7 @@ Open Data Discovery
 
 > We know everybody is on his way to publish data, but WHERE are those data?
 
-**[Open Data Discovery](http://opendatadiscovery.github.io/)** is such a project to explore and visualize the geographical coverage of open data in [CKAN-based data portals](http://ckan.org/instances/#). We believe understanding the existing open data is as important as opening new data.
+**[Open Data Discovery](http://opendatadiscovery.github.io/)** is such a project to explore and visualize the geography of open data in [CKAN-based data portals](http://ckan.org/instances/#). We believe understanding the existing open data is as important as opening new data.
 
 How does it work?
 -----------------

@@ -70,7 +70,7 @@ module.exports = function(grunt) {
                 tasks: ['less']
             },
             libs: {
-                files: ['externalScripts.json', 'externalStyles,json', 'static_src/libs/**/*.js', 'static_src/libs/**/*.css'],
+                files: ['externalScripts.json', 'externalStyles.json', 'static_src/libs/**/*.js', 'static_src/libs/**/*.css'],
                 tasks: ['clean:all', 'less', 'ngAnnotate', 'concat', 'uglify']
             },
             scripts: {

@@ -1,4 +1,4 @@
-app.controller('navigatorCtrl', function($scope, $http, _map, mapService) {
+app.controller('navigatorCtrl', function($scope, $http, $uibModal, _map, mapService) {
 
   var switchTo = {
     State: mapService.loadStateMap,
@@ -13,6 +13,14 @@ app.controller('navigatorCtrl', function($scope, $http, _map, mapService) {
     if ($scope.currentResolution === resolution) { return; }
     $scope.currentResolution = resolution;
     switchTo[resolution]();
+  };
+
+  $scope.openAboutModal = function() {
+    var aboutModal = $uibModal.open({
+      animation: true,
+      controller: 'aboutModalCtrl',
+      templateUrl: 'static/views/about.html'
+    });
   };
 
   $scope.goTo = function($event) {
