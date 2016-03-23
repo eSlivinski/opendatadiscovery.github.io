@@ -83,8 +83,9 @@ app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
       var layer = e.target;
       var properties = layer.feature.properties;
+      var bounds = layer.getBounds();
 
-      var request = vsprintf('%s/api/%s/count?name=%s', [
+      var request = vsprintf('%s/api/%s/detail?name=%s', [
         config.server,
         properties.type,
         properties.name
@@ -100,6 +101,16 @@ app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, 
                                                  detail.name;
         scope.count = detail.count;
         scope.update = detail.update;
+
+        scope.link = vsprintf('https://catalog.data.gov/dataset?q=&ext_location=%s&ext_bbox=%s',[
+          scope.place.replace(' ', '+'),
+          vsprintf('%f,%f,%f,%f', [
+            bounds.getWest(),
+            bounds.getSouth(),
+            bounds.getEast(),
+            bounds.getNorth()
+          ]).replace(',', '%2C')
+        ]);
 
         var content = angular.element('<detail-view></detail-view>');
         _sidebar.setContent($compile(content)(scope)[0]);

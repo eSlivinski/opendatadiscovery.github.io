@@ -4,6 +4,6 @@ app.directive('detailView', function() {
       controller: 'detailViewCtrl',
       scope: false,
       link: function(scope, element, attrs) {},
-      templateUrl: 'static/views/detail_view.html'
+      templateUrl: 'static/views/detail-view.html'
     };
 });
