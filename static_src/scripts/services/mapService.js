@@ -85,7 +85,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
       var properties = layer.feature.properties;
       var bounds = layer.getBounds();
 
-      var request = vsprintf('%s/api/%s/count?name=%s', [
+      var request = vsprintf('%s/api/%s/detail?name=%s', [
         config.server,
         properties.type,
         properties.name
@@ -101,7 +101,7 @@ app.service('mapService', function($rootScope, $http, $compile, $timeout, _map, 
                                                  detail.name;
         scope.count = detail.count;
         scope.update = detail.update;
-        // https://catalog.data.gov/dataset?q=&sort=score+desc%2C+name+asc&ext_location=New+York&ext_bbox=-79.7632%2C40.506%2C-71.87%2C45.0061
+
         scope.link = vsprintf('https://catalog.data.gov/dataset?q=&ext_location=%s&ext_bbox=%s',[
           scope.place.replace(' ', '+'),
           vsprintf('%f,%f,%f,%f', [
