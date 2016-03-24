@@ -161,7 +161,7 @@ app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, 
           }).addTo(_map);
 
           var stats = updateStat(result.data, 'state');
-          legendService.update(stats);
+          legendService.update(stats, 'state');
         })
         .finally(function() { _map.spin(false); });
       },
@@ -180,7 +180,7 @@ app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, 
           }).addTo(_map);
 
           var stats = updateStat(result.data, 'county');
-          legendService.update(stats);
+          legendService.update(stats, 'county');
         })
         .finally(function() { _map.spin(false); });
       }

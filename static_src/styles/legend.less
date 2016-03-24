@@ -1,12 +1,37 @@
-svg.chart {
-  left:10px;
-  bottom: 20px;
-  position: absolute;
+#legend {
+    bottom: 20px;
+    left: 20px;
 
-  text {
-    fill: rgb(43, 43, 43);
-    font-size: 20px;
-    font-weight: bold;
-    text-anchor: end;
-  }
+    div {
+        height: 20px;
+        text-align: right;
+        font-weight: bold;
+        font-size: 20px;
+        color: rgb(51, 51, 50);
+        display: table;
+        opacity: 0.8;
+
+        span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+
+    .y-labels {
+      fill: #fff;
+    }
+
+    .axis text {
+      fill: #fff;
+    }
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #fff;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      // display: none;
+    }
 }

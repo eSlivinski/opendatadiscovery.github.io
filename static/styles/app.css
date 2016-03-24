@@ -9439,16 +9439,34 @@ nav .nav-button {
 nav .clickable:hover {
   text-decoration: underline !important;
 }
-svg.chart {
-  left: 10px;
+#legend {
   bottom: 20px;
-  position: absolute;
+  left: 20px;
 }
-svg.chart text {
-  fill: #2b2b2b;
-  font-size: 20px;
+#legend div {
+  height: 20px;
+  text-align: right;
   font-weight: bold;
-  text-anchor: end;
+  font-size: 20px;
+  color: #333332;
+  display: table;
+  opacity: 0.8;
+}
+#legend div span {
+  display: table-cell;
+  vertical-align: middle;
+}
+#legend .y-labels {
+  fill: #fff;
+}
+#legend .axis text {
+  fill: #fff;
+}
+#legend .axis path,
+#legend .axis line {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
 }
 .leaflet-sidebar {
   top: 60px;
