@@ -12,6 +12,8 @@ app.service('legendService', function($rootScope) {
       w = 350 - (padding.left + padding.right) ;
 
   var updateLegend = function(stat, type) {
+      d3.selectAll('#d3Legend').remove();
+
       var sum = _.sum(stat);
 
       var xscale = d3.scale.linear()
@@ -38,6 +40,7 @@ app.service('legendService', function($rootScope) {
       // Create SVG
       var svg = d3.select('#legend')
               .append('svg')
+              .attr('id', 'd3Legend')
               .attr('height', h + (padding.top + padding.bottom))
               .attr('width', w + (padding.left + padding.right));
 
@@ -58,7 +61,8 @@ app.service('legendService', function($rootScope) {
       var bars = g.selectAll('.bars')
               .data(stat)
               .enter().append('rect')
-              .attr('width', function(d) { return xscale(d/sum); })
+              .attr('class', 'bars')
+              .attr('width', 0)
               .attr('height', (h/stat.length - 10))
               .attr('x', 0)
               .attr('y', function(d, i) { return i * (h/stat.length) })
@@ -72,7 +76,17 @@ app.service('legendService', function($rootScope) {
               .attr('y', function(d, i) { return (i * (h/stat.length)) + ((h/stat.length - 10)/2) })
               .attr('class', 'y-labels')
               .attr('dy', '1.2em');
+
+
+      /* Animate Elements IN */
+          bars
+            .transition()
+            .duration(1000).delay(700)
+            .attr('width', function(d) { return xscale(d/sum); });
+
   };
+
+
 
   $rootScope.$on('state_map:loaded', function(event, data) {
       updateLegend(data, 'state');

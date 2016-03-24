@@ -9456,6 +9456,23 @@ nav .clickable:hover {
   display: table-cell;
   vertical-align: middle;
 }
+#legend .y-labels {
+  fill: #fff;
+}
+#legend .axis text {
+  fill: #fff;
+}
+#legend .axis path,
+#legend .axis line {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+.highlight {
+  stroke: white;
+  stroke-width: 2px;
+  stroke-dasharray: 0;
+}
 .leaflet-sidebar {
   top: 50px;
   height: calc(100% -  50px);
