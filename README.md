@@ -32,6 +32,16 @@ We welcome all kinds of suggestions and advices! Please feel free to contact Hao
 
 We are particularly seeking to know the official source of geographical boundaries for region with openn data portal. If you happen to know, please tell me.
 
+How to set up?
+-----------------
+
+1. Clone the repository to local
+
+2. Run `grunt build` to build the script and style files.
+
+3. Open 'index.html' and the app will fetch data from the remove server.
+
+
 Thanks to these awesome people!
 -------------------------------
 

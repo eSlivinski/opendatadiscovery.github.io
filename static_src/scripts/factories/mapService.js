@@ -43,18 +43,20 @@ app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, 
 
         layer.setStyle({
             weight: 5,
-            color: '#666',
             dashArray: '',
-            fillOpacity: 0.7
+            fillOpacity: 1
         });
+
+        d3.select(e.layer._path)
+          .call(legendService.highlightBars);
 
         // get the content of popup
         var properties = layer.feature.properties;
         var info;
         if (properties.state) {
-            info = properties.name + ', ' + properties.state + ' has ' + properties.count.toString() + ' open datasets.\n(click for more detail)';
+            info = properties.name + ', ' + properties.state + ' has ' + properties.count.toString() + ' open datasets.<br>(click for more detail)';
         } else {
-            info = properties.name + ' has ' + properties.count.toString() + ' open datasets.\n(click for more detail)';
+            info = properties.name + ' has ' + properties.count.toString() + ' open datasets.<br>(click for more detail)';
         }
 
         _map.closePopup();
@@ -73,6 +75,9 @@ app.factory('mapService', function($rootScope, $http, $compile, $timeout, _map, 
       _map.closePopup();
       currentPopup = undefined;
       currentLayer.resetStyle(e.target);
+
+      d3.select(e.layer._path)
+        .call(legendService.removeBarHighlight);
     }
 
     function mouseMove(e) {
