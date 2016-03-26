@@ -9,7 +9,7 @@ app.factory('legendService', function($rootScope) {
   var height = 210 - (padding.top + padding.bottom);
   var width = 350 - (padding.left + padding.right);
 
-  return {
+  var factory = {
 
     limits: limits,
 
@@ -63,15 +63,26 @@ app.factory('legendService', function($rootScope) {
                 return 'translate (' + [padding.left, padding.top  ] + ')';
               });
 
-              var bars = g.selectAll('.bars')
+              var bars = g.selectAll('.bar')
                 .data(stats)
                 .enter().append('rect')
-                .attr('class', 'bars')
+                .attr('class', 'bar')
                 .attr('width', 0)
                 .attr('height', (height/stats.length - 10))
                 .attr('x', 0)
                 .attr('y', function(d, i) { return i * (height / stats.length); })
-                .attr('fill', function(d, i) { return colors[i]; });
+                .attr('fill', function(d, i) { return colors[i]; })
+                .attr('fill-opacity', 0.7)
+                .on('mouseenter', function(d, i) {
+                  d3.selectAll('[fill="' + colors[i] + '"]')
+                    .transition()
+                    .attr('fill-opacity', 1);
+                })
+                .on('mouseleave', function(d, i) {
+                  d3.selectAll('[fill="' + colors[i] + '"]')
+                    .transition()
+                    .attr('fill-opacity', 0.7);
+                });
 
       var labels = svg.selectAll('.y-labels')
               .data(stats)
@@ -88,6 +99,22 @@ app.factory('legendService', function($rootScope) {
         .duration(1000).delay(700)
         .attr('width', function(d) { return xscale(d); });
 
+    },
+
+    highlightBars : function (selection) {
+      var fillColor = selection.attr('fill');
+      d3.selectAll('.bar[fill="' + fillColor + '"]')
+        .transition()
+        .attr('fill-opacity', 1);
+    },
+
+    removeBarHighlight : function (selection) {
+      var fillColor = selection.attr('fill');
+      d3.selectAll('.bar[fill="' + fillColor + '"]')
+        .transition()
+        .attr('fill-opacity', 0.7);
     }
   };
+
+  return factory;
 });
